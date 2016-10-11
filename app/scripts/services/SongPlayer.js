@@ -17,7 +17,7 @@
         
          /**
          * @function setSong
-         * @desc Stops currently playing song and loads new audio file as currentBuzzObject
+         * @desc Stops currently playing song and loads new audio file as currentBuzzObject; Also will auto play next song when current song ends
          * @param {Object} song
          */        
         var setSong = function(song) {
@@ -34,6 +34,10 @@
                 $rootScope.$apply(function() {
                     SongPlayer.currentTime = currentBuzzObject.getTime();
                 });
+            });
+            
+            currentBuzzObject.bind('ended', function() {
+                SongPlayer.next();
             });
 
             SongPlayer.currentSong = song;
